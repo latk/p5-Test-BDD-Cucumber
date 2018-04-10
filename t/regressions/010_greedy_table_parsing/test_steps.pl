@@ -20,7 +20,7 @@ Then qr/the results look like/, sub {
     foreach my $row ( @{$data} ) {
         my $func   = $row->{method};
         my $expect = $row->{output};
-        my $got    = $digest->$func();
+        my $got    = $digest->clone->$func();
         is $got, $expect, "test: $func";
     }
 };
@@ -30,6 +30,6 @@ Then qr/the ((?:hex|b64)digest) looks like:/, sub {
     my $expect = C->data;
     chomp $expect;
     my $digest = S->{digest};
-    my $got = $digest->$func();
+    my $got = $digest->clone->$func();
     is $got, $expect, "test: $func";
 };
